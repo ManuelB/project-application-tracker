@@ -121,7 +121,9 @@
 			  },
 			  "hconcat": [
 			    {
+			      "title": "Applications written per day",
 			      "mark": "bar",
+      			  "width": 400,
 			      "encoding": {
 			        "x": {
 			          "timeUnit": "yearmonthdate",
@@ -129,20 +131,22 @@
 			          "scale": {"type": "utc"},
 			          "axis": {"labelAngle": 15}
 			        },
-			        "y": {"aggregate": "count", "field": "id", "type": "quantitative"}
+			        "y": {"aggregate": "count", "field": "id", "type": "quantitative"},
+                    "tooltip": {"aggregate": "count", "field": "id", "type": "quantitative"}
 			      }
 			    },
 			    {
+			      "title": "Amount of applications that are still active",
 			      "mark": "arc",
 			      "encoding": {
 			        "theta": {"aggregate": "count",
-			              "field": "status2",
-			              "type": "quantitative"},
-			        "color": {"field": "status2", "type": "nominal"}
-			      },
-			      "view": {"stroke": null}
+			              "field": "status2"},
+			        "color": {"field": "status2"},
+        			"tooltip": {"aggregate": "count", "field": "status2"}
+			      }
 			    },
 			    {
+			      "title": "Funnel of current applications",
 			      "layer": [
 			        {
 			          "mark": "bar",
@@ -151,20 +155,9 @@
 			            "color": {"field": "phase", "type": "nominal", "legend": null},
 			            "x": {
 			              "aggregate": "count",
-			              "field": "id",
-			              "type": "quantitative",
-			              "stack": "center"
-			            }
-			          }
-			        },
-			        {
-			          "mark": "text",
-			          "encoding": {
-			            "text": {
-			              "aggregate": "count",
-			              "field": "id",
-			              "type": "quantitative"
-			            }
+			              "field": "phase"
+			            },
+			            "tooltip": {"aggregate": "count", "field": "phase"}
 			          }
 			        }
 			      ]
