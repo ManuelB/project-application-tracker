@@ -1,0 +1,184 @@
+{
+	"_version": "1.1.0",
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "incentergy.projectapplicationtracker",
+		"type": "application",
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"_version": "1.1.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_fiori_3"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.1.0",
+		"rootView": {
+			"viewName": "incentergy.projectapplicationtracker.view.App",
+			"type": "XML",
+			"async": true
+		},
+		"dependencies": {
+			"minUI5Version": "1.68.1",
+			"libs": {
+				"sap.m": {
+				},
+				"sap.f": {
+				},
+				"sap.uxap": {
+				},
+				"sap.tnt": {
+				},
+				"sap.ui.unified": {
+				},
+				"sap.ui.layout": {
+				}
+			}
+		},
+		"config": {
+			"fullWidth": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "incentergy.projectapplicationtracker.i18n.i18n"
+				}
+			}
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.f.routing.Router",
+				"viewType": "XML",
+				"viewPath": "incentergy.projectapplicationtracker.view",
+				"controlId": "fcl",
+				"transition": "slide",
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "projectapplicationtracker/:layout:",
+					"name": "master",
+					"navigationItem": {
+						"id": "2ed7f193-8c94-4797-b086-8008c3f403ad",
+						"topLevelItem": true,
+						"icon": "sap-icon://gantt-bars",
+						"sort": 70,
+						"route": "projectapplicationtracker",
+						"text": {
+							"de" : "Projektbewerbungstracker",
+							"en" : "Project application tracker"
+						}
+					},
+					"target": [
+						"master",
+						"detail"
+					]
+				}
+			],
+			"targets": {
+				"master": {
+					"viewName": "Master",
+					"controlAggregation": "beginColumnPages"
+				},
+				"detail": {
+					"viewName": "Detail",
+					"controlAggregation": "midColumnPages"
+				}
+			}
+		}
+	},
+	"incentergy.base.vega": [
+		{
+		    "rows": 3,
+		    "columns": 6,
+			"header": {
+				"title": "Project application tracker",
+				"subTitle": "by status",
+				"status": {
+					"text": "grouped"
+				},
+				"icon": {
+					"src": "sap-icon://gantt-bars"
+				}
+			},
+			"content": {
+			  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+			  "data": {
+			    "url": "indexeddb://incentergy.projectapplicationtracker/projects",
+			    "format": {"parse": {"createdTs": "utc:'%Y-%m-%dT%H:%M:%S.%LZ%Z'"}}
+			  },
+			  "hconcat": [
+			    {
+			      "mark": "bar",
+			      "encoding": {
+			        "x": {
+			          "timeUnit": "yearmonthdate",
+			          "field": "createdTs",
+			          "type": "ordinal",
+			          "scale": {"type": "utc"},
+			          "axis": {"labelAngle": 15}
+			        },
+			        "y": {"aggregate": "count", "field": "id", "type": "quantitative"}
+			      }
+			    },
+			    {
+			      "mark": "arc",
+			      "encoding": {
+			        "theta": {"aggregate": "count",
+			              "field": "status2",
+			              "type": "quantitative"},
+			        "color": {"field": "status2", "type": "nominal"}
+			      },
+			      "view": {"stroke": null}
+			    },
+			    {
+			      "layer": [
+			        {
+			          "mark": "bar",
+			          "encoding": {
+			            "y": {"field": "phase", "type": "nominal", "sort": null},
+			            "color": {"field": "phase", "type": "nominal", "legend": null},
+			            "x": {
+			              "aggregate": "count",
+			              "field": "id",
+			              "type": "quantitative",
+			              "stack": "center"
+			            }
+			          }
+			        },
+			        {
+			          "mark": "text",
+			          "encoding": {
+			            "text": {
+			              "aggregate": "count",
+			              "field": "id",
+			              "type": "quantitative"
+			            }
+			          }
+			        }
+			      ]
+			    }
+			  ]
+			}
+		}
+	],
+	"incentergy.base.event": [
+		{
+			"channel": "incentergy.scopevisiochatbot",
+			"eventId": "import-sales-projects",
+			"listenerFunctionOnComponent": "onImportSalesProjects" 
+		}
+	]
+}
