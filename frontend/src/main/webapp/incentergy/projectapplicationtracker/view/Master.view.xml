@@ -1,0 +1,64 @@
+<mvc:View displayBlock="true"
+	controllerName="incentergy.projectapplicationtracker.view.Master" height="100%"
+	xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage id="dynamicPageId"
+		toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="{i18n>ProjectApplications}" />
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title>
+
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Table id="projectapplicationTable" inset="false"
+				items="{
+						path: '/ProjectApplications',
+						sorter: {
+							path: 'createdTs',
+        					descending: 'true'
+						}
+					}"
+				class="sapFDynamicPageAlignContent" width="auto" growing="true">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer />
+						<SearchField search="onSearch" width="17.5rem" />
+						<OverflowToolbarButton
+							icon="sap-icon://sort" type="Transparent" press="onSort" />
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column width="12em">
+						<Text text="{i18n>createdTs}" />
+					</Column>
+					<Column>
+						<Text text="{i18n>name}" />
+					</Column>
+					<Column>
+						<Text text="{i18n>phase}" />
+					</Column>
+					<Column>
+						<Text text="{i18n>status2}" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation"
+						press="onListItemPress">
+						<cells>
+							<Text text="{path: 'createdTs', type: 'sap.ui.model.type.DateTime', formatOptions: {source: { pattern: 'yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'Z'}, style: 'short'}}" />
+							<ObjectIdentifier title="{name}" />
+							<Text
+								text="{phase}" />
+							<Text
+								text="{status2}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+	</f:DynamicPage>
+</mvc:View>

@@ -50,12 +50,15 @@
 			"fullWidth": true
 		},
 		"models": {
+			"": {
+				"type": "incentergy.projectapplicationtracker.model.ProjectApplicationModel"
+			},
 			"i18n": {
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
 					"bundleName": "incentergy.projectapplicationtracker.i18n.i18n"
 				}
-			}
+			}			
 		},
 		"routing": {
 			"config": {
@@ -81,6 +84,14 @@
 							"en" : "Project application tracker"
 						}
 					},
+					"target": [
+						"master",
+						"detail"
+					]
+				},
+				{
+					"pattern": "projectapplicationtracker/{projectapplication}/{layout}",
+					"name": "detail",
 					"target": [
 						"master",
 						"detail"
@@ -166,11 +177,16 @@
 			}
 		}
 	],
+	"incentergy.base": {
+            "uiExtensions":{
+                "incentergy.projectoffer.detail": [ "incentergy.projectapplicationtracker.uiExtensions.projectoffer.MatchingApplications" ]
+        }
+    },
 	"incentergy.base.event": [
 		{
 			"channel": "incentergy.scopevisiochatbot",
 			"eventId": "import-sales-projects",
 			"listenerFunctionOnComponent": "onImportSalesProjects" 
 		}
-	]
+	]       
 }
