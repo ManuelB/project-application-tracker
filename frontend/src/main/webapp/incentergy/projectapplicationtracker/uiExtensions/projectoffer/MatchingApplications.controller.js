@@ -14,7 +14,8 @@ sap.ui.define(["sap/ui/core/Component", "sap/ui/core/mvc/Controller", "sap/ui/mo
 					oListBinding.attachDataReceived((oEvent) => {
 						let aSkills = oEvent.getParameter("data");
 						if(aSkills) {
-							let sQuery = aSkills.results.slice(0,3).map(o => o.Name).join(" ");
+							// take the first skill
+							let sQuery = aSkills.results.slice(0,1).map(o => o.Name).join(" ");
 							this.byId("search").setValue(sQuery);
 							this.onSearch();
 						}
