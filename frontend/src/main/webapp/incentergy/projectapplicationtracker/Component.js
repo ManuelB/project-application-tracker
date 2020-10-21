@@ -36,8 +36,8 @@ function(AbstractUIComponent, includeScript, Log) {
 							store: ["body", "projectId"]
 						}
 					});
-					if(oResult.result) {
-						index.import(oResult.result.data);
+					if(oResult.target.result) {
+						index.import(oResult.target.result.data);
 					}
 					fnResolve(index);
 				}
