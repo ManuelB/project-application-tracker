@@ -90,6 +90,14 @@
 					]
 				},
 				{
+					"pattern": "projectapplicationtracker/search/:query:",
+					"name": "search",
+					"target": [
+						"master",
+						"detail"
+					]
+				},
+				{
 					"pattern": "projectapplicationtracker/{projectapplication}/{layout}",
 					"name": "detail",
 					"target": [
@@ -130,6 +138,11 @@
 			    "url": "indexeddb://incentergy.projectapplicationtracker/projects",
 			    "format": {"parse": {"createdTs": "utc:'%Y-%m-%dT%H:%M:%S.%LZ%Z'"}}
 			  },
+			  "transform": [{
+			    "calculate": "'#/projectapplicationtracker/search/status2=' + datum.status2", "as": "status2Url"
+			  },{
+			    "calculate": "'#/projectapplicationtracker/search/phase=' + datum.phase", "as": "phaseUrl"
+			  }],
 			  "hconcat": [
 			    {
 			      "title": "Applications written per day",
@@ -153,11 +166,15 @@
 			        "theta": {"aggregate": "count",
 			              "field": "status2"},
 			        "color": {"field": "status2"},
-        			"tooltip": {"aggregate": "count", "field": "status2"}
+        			"tooltip": {"aggregate": "count", "field": "status2"},
+        			"href": {"field": "status2Url", "type": "nominal"}
 			      }
 			    },
 			    {
 			      "title": "Funnel of current applications",
+			      "transform": [
+				    {"filter": "datum.status2 != 'abgebrochen'"}
+				  ],
 			      "layer": [
 			        {
 			          "mark": "bar",
@@ -168,6 +185,7 @@
 			              "aggregate": "count",
 			              "field": "phase"
 			            },
+    					"href": {"field": "phaseUrl", "type": "nominal"},
 			            "tooltip": {"aggregate": "count", "field": "phase"}
 			          }
 			        }
