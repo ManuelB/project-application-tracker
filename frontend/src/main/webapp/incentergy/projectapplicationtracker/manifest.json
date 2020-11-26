@@ -171,9 +171,23 @@
 			      }
 			    },
 			    {
+			      "title": "Funnel of all applications",
+		          "mark": "bar",
+		          "encoding": {
+		            "y": {"field": "phase", "type": "nominal", "sort": null},
+		            "color": {"field": "phase", "type": "nominal"},
+		            "x": {
+		              "aggregate": "count",
+		              "field": "phase"
+		            },
+					"href": {"field": "phaseUrl", "type": "nominal"},
+		            "tooltip": {"aggregate": "count", "field": "phase"}
+		          }
+			    },
+			    {
 			      "title": "Funnel of current applications",
 			      "transform": [
-				    {"filter": "datum.status2 != 'abgebrochen'"}
+				    {"filter": "datum.status2 != 'abgebrochen' && datum.status2 != 'zurückgestellt'"}
 				  ],
 		          "mark": "bar",
 		          "encoding": {
