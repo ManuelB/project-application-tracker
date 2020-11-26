@@ -175,21 +175,17 @@
 			      "transform": [
 				    {"filter": "datum.status2 != 'abgebrochen'"}
 				  ],
-			      "layer": [
-			        {
-			          "mark": "bar",
-			          "encoding": {
-			            "y": {"field": "phase", "type": "nominal", "sort": null},
-			            "color": {"field": "phase", "type": "nominal", "legend": null},
-			            "x": {
-			              "aggregate": "count",
-			              "field": "phase"
-			            },
-    					"href": {"field": "phaseUrl", "type": "nominal"},
-			            "tooltip": {"aggregate": "count", "field": "phase"}
-			          }
-			        }
-			      ]
+		          "mark": "bar",
+		          "encoding": {
+		            "y": {"field": "phase", "type": "nominal", "sort": null},
+		            "color": {"field": "phase", "type": "nominal"},
+		            "x": {
+		              "aggregate": "count",
+		              "field": "phase"
+		            },
+					"href": {"field": "phaseUrl", "type": "nominal"},
+		            "tooltip": {"aggregate": "count", "field": "phase"}
+		          }
 			    }
 			  ]
 			}
